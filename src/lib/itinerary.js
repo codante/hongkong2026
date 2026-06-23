@@ -19,9 +19,9 @@ export function buildItinerary({
   // === HK Days ===
   const arrivalDesc =
     outbound === "fly"
-      ? "✈️ 北京飞香港（白天航班，~3.5h）"
-      : "🚄 高铁卧铺早上到达（前晚北京出发）";
-  const arrivalTime = outbound === "fly" ? "上午出发" : "早上到达";
+      ? "✈️ 国泰 CX345 北京T3 07:25 → 香港 11:00（~3.5h）"
+      : "🚄 G897 动卧 前晚 21:01 北京发 → 今早 07:19 到西九龙";
+  const arrivalTime = outbound === "fly" ? "07:25 起飞" : "07:19 到港";
 
   if (hkDays === 2) {
     days.push({
