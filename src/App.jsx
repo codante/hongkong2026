@@ -4,14 +4,17 @@ import Toggle from "./components/Toggle.jsx";
 import OptionCard from "./components/OptionCard.jsx";
 import DayCard from "./components/DayCard.jsx";
 import FoodChecklist from "./components/FoodChecklist.jsx";
+import TransportSection from "./components/TransportSection.jsx";
+import StaySection from "./components/StaySection.jsx";
 import { buildItinerary, buildWarnings } from "./lib/itinerary.js";
+import { buildLegs, buildStays } from "./lib/plan.js";
 
 export default function App() {
   const [totalDays, setTotalDays] = useState(4);
   const [hkDays, setHkDays] = useState(1);
   const [hkAccom, setHkAccom] = useState("hk");
   const [hkToSt, setHkToSt] = useState("direct");
-  const [outbound, setOutbound] = useState("fly"); // fly / redeye / sleeper
+  const [outbound, setOutbound] = useState("fly"); // fly / sleeper
   const [returnMode, setReturnMode] = useState("jy_fly"); // jy_fly / sz
   const [visitJy, setVisitJy] = useState(true);
 
@@ -32,6 +35,17 @@ export default function App() {
   );
 
   const warnings = buildWarnings({ totalDays, hkDays, hkAccom });
+
+  const legs = buildLegs({
+    outbound,
+    hkAccom,
+    hkToSt,
+    returnMode,
+    visitJy,
+    totalDays,
+    hkDays,
+  });
+  const stays = buildStays({ totalDays, hkDays, hkAccom, visitJy });
 
   return (
     <div
@@ -116,27 +130,11 @@ export default function App() {
             <Toggle
               options={[
                 { value: "fly", label: "白天航班" },
-                { value: "redeye", label: "红眼（便宜）" },
                 { value: "sleeper", label: "高铁卧铺" },
               ]}
               value={outbound}
               onChange={setOutbound}
             />
-            {outbound === "redeye" && (
-              <div
-                style={{
-                  marginTop: 6,
-                  padding: "6px 10px",
-                  background: COLORS.accentLight,
-                  borderRadius: 6,
-                  fontSize: 12,
-                  color: COLORS.accentDark,
-                  fontFamily: sansStack,
-                }}
-              >
-                💡 便宜但凌晨到，朋友可能嫌累
-              </div>
-            )}
             {outbound === "sleeper" && (
               <div
                 style={{
@@ -300,6 +298,12 @@ export default function App() {
         {itinerary.map((day, i) => (
           <DayCard key={`${day.date}-${i}`} day={day} index={i} />
         ))}
+
+        {/* Transport reference */}
+        <TransportSection legs={legs} />
+
+        {/* Accommodation suggestions */}
+        <StaySection stays={stays} />
 
         {/* Food Checklist */}
         <FoodChecklist chaoshanDays={chaoshanDays} />

@@ -20,15 +20,8 @@ export function buildItinerary({
   const arrivalDesc =
     outbound === "fly"
       ? "✈️ 北京飞香港（白天航班，~3.5h）"
-      : outbound === "redeye"
-      ? "✈️ 红眼航班凌晨到达，先补觉！"
       : "🚄 高铁卧铺早上到达（前晚北京出发）";
-  const arrivalTime =
-    outbound === "fly"
-      ? "上午出发"
-      : outbound === "redeye"
-      ? "凌晨到达"
-      : "早上到达";
+  const arrivalTime = outbound === "fly" ? "上午出发" : "早上到达";
 
   if (hkDays === 2) {
     days.push({
@@ -37,9 +30,6 @@ export function buildItinerary({
       location: "香港",
       activities: [
         { time: arrivalTime, desc: arrivalDesc },
-        ...(outbound === "redeye"
-          ? [{ time: "上午", desc: "😴 酒店补觉到中午" }]
-          : []),
         { time: "下午", desc: "🎨 尖沙咀闲逛 / 莫奈展 / 坂本龙一展" },
         { time: "晚餐", desc: "🍽️ 随缘：茶餐厅 / 点心 / Jollibee" },
         { time: "晚上", desc: "🌃 维港夜景" },
@@ -64,9 +54,6 @@ export function buildItinerary({
       location: hkAccom === "sz" ? "深圳 → 香港" : "香港",
       activities: [
         { time: arrivalTime, desc: arrivalDesc },
-        ...(outbound === "redeye"
-          ? [{ time: "上午", desc: "😴 先补觉，下午再出动" }]
-          : []),
         { time: "下午", desc: "🚶 尖沙咀随逛 + 随缘吃" },
         { time: "20:00", desc: "🎭 JCS — 香港文化中心大剧院", highlight: true },
         {
