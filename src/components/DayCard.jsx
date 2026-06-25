@@ -9,7 +9,7 @@ const locationColors = {
   揭阳: COLORS.jy,
 };
 
-export default function DayCard({ day, index }) {
+export default function DayCard({ day, index, scope }) {
   const mainLocation =
     Object.keys(locationColors).find((l) => day.location.includes(l)) ||
     COLORS.accent;
@@ -107,8 +107,8 @@ export default function DayCard({ day, index }) {
               }}
             >
               <Annotatable
-                annoKey={`行程·${day.date}·${i}`}
-                label={`${day.date}（${day.weekday}）${act.time}｜${act.desc}`}
+                annoKey={`行程·${scope}·${day.date}·${i}`}
+                label={`[${scope}] ${day.date}（${day.weekday}）${act.time}｜${act.desc}`}
               >
                 <div
                   style={{ display: "flex", gap: 10, alignItems: "flex-start" }}

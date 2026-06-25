@@ -1,5 +1,6 @@
 // 行程生成纯函数：根据选项算出每天的活动时间线。
-// 所有方案都 7/25 当天到港看下午场。hkPlan 三选一：
+// 餐食只标时段 + "觅食"，不提前定死每顿（具体想吃的见美食清单，现场随性挑）。
+// hkPlan 三选一：
 //   "hk1"   — 香港 1 天：看完戏住香港，7/26 中午 G6392 直达汕头
 //   "sz1"   — 香港 1 天：看完戏当晚回深圳，7/26 早上 深圳→汕头
 //   "hk2sz" — 香港 2 天：7/25 看戏住香港、7/26 玩一天后晚上去深圳，7/27 早上去汕头（省房钱）
@@ -35,8 +36,8 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
       {
         time: "午餐",
         desc: stayHkNight1
-          ? "🍜 尖沙咀快速午餐（到港别耽搁，赶下午场）"
-          : "🍜 尖沙咀午餐（行李先寄存西九龙站）",
+          ? "🍜 午餐觅食（到港别耽搁，赶下午场）"
+          : "🍜 午餐觅食（行李先寄存西九龙站）",
       },
       ...showActivities,
       ...(stayHkNight1
@@ -46,8 +47,8 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
             { time: "晚上", desc: "🌃 维港夜景，住香港" },
           ]
         : [
-            { time: "17:00", desc: "🌅 散场，海滨散步 + 早晚餐" },
-            { time: "晚上", desc: "🚄 取行李，西九龙 → 深圳北（约 23min 过关），站旁酒店睡（纯换乘）" },
+            { time: "17:00", desc: "🌅 散场，海滨散步 + 晚餐觅食" },
+            { time: "傍晚", desc: "🚄 取行李，西九龙 → 深圳北（约 23min 过关），站旁酒店睡（纯换乘）" },
           ]),
     ],
   });
@@ -60,7 +61,7 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
       location: "香港 → 深圳",
       activities: [
         { time: "上午", desc: "🎨 香港故宫 / K11 MUSEA / 海港城购物" },
-        { time: "午餐", desc: "🥟 早茶 / 心仪餐厅" },
+        { time: "午餐", desc: "🥟 早茶 / 觅食" },
         { time: "下午", desc: "🚶 尖沙咀 / 中环 citywalk（或太平山顶）" },
         { time: "晚上", desc: "🧳 玩够了退房，西九龙 → 深圳北（约 23min 过关）" },
         { time: "夜里", desc: "🏨 深圳北站旁酒店（~¥200，纯换乘睡一晚），早睡赶早车" },
@@ -79,20 +80,20 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
       ? [
           { time: "07:54 发车", desc: "🚄 C7220 深圳北 07:54 → 汕头 10:03（¥148）" },
           { time: "10:03 到", desc: "🏨 到汕头，check-in 放行李" },
-          { time: "中午", desc: "🍜 汕头第一口：粿条 / 牛肉丸垫垫" },
+          { time: "中午", desc: "🍜 午餐觅食，垫一垫" },
           { time: "下午", desc: "❄️ 酒店空调躺平，午睡，等太阳下去" },
           { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-          { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
-          { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
+          { time: "晚餐", desc: "🍽️ 到埠第一顿，开吃！（美食清单里挑）", highlight: true },
+          { time: "宵夜", desc: "🌙 宵夜觅食" },
         ]
       : [
-          { time: "早上", desc: "🥟 最后一顿港式早茶（从容，下午才发车）" },
+          { time: "早上", desc: "🥟 港式早茶（从容，下午才发车）" },
           { time: "12:55 发车", desc: "🚄 G6392 西九龙 12:55 → 汕头 15:10（¥305）" },
           { time: "15:10 到", desc: "🏨 到达汕头，check-in" },
           { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
           { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-          { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
-          { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
+          { time: "晚餐", desc: "🍽️ 到埠第一顿，开吃！（美食清单里挑）", highlight: true },
+          { time: "宵夜", desc: "🌙 宵夜觅食" },
         ],
   });
 
@@ -113,25 +114,25 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
       if (visitJy && jyExpanded) {
         day.location = "揭阳觅食 → 飞北京";
         day.activities = [
-          { time: "早餐", desc: "🍜 揭阳早餐（粿条/肠粉/粿汁）" },
+          { time: "早餐", desc: "🍜 早餐觅食" },
           { time: "上午", desc: "🔥 揭阳市区继续扫街觅食" },
-          { time: "午餐", desc: "🥩 揭阳乙鸽鸽 / 当地特色", highlight: true },
+          { time: "午餐", desc: "🍽️ 午餐觅食", highlight: true },
           { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
           { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
       } else if (visitJy) {
         day.location = "汕头 → 揭阳觅食 → 飞北京";
         day.activities = [
-          { time: "早餐", desc: "🥟 肠粉 / 粿汁（最后一顿早餐！）" },
+          { time: "早餐", desc: "🥟 早餐觅食（最后一顿！）" },
           { time: "上午", desc: "🚗 前往揭阳（~40min）" },
-          { time: "午餐", desc: "🍜 揭阳美食探索" },
+          { time: "午餐", desc: "🍽️ 揭阳午餐觅食" },
           { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
           { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
       } else {
         day.location = "汕头 → 揭阳机场 → 北京";
         day.activities = [
-          { time: "早餐", desc: "🥟 肠粉 / 粿汁" },
+          { time: "早餐", desc: "🥟 早餐觅食" },
           { time: "上午", desc: "🎁 老城区最后一逛 + 买伴手礼" },
           { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
@@ -144,12 +145,12 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
         location: "汕头 → 揭阳",
         activities: [
           { time: "自然醒", desc: "😴 汕头最后一个早上" },
-          { time: "早午餐", desc: "🍜 粿条 / 粿汁（最后的汕头早餐）" },
+          { time: "早午餐", desc: "🍜 早午餐觅食（最后的汕头早餐）" },
           { time: "下午", desc: "🚗 出发去揭阳（~40min），入住酒店" },
-          { time: "下午茶", desc: "🧊 揭阳冰室探索" },
+          { time: "下午茶", desc: "🧊 揭阳下午茶 / 冰室" },
           { time: "傍晚", desc: "🔥 揭阳老城扫街" },
-          { time: "晚餐", desc: "🍜 揭阳特色美食", highlight: true },
-          { time: "宵夜", desc: "🍮 甜品 + 功夫茶" },
+          { time: "晚餐", desc: "🍽️ 揭阳晚餐觅食", highlight: true },
+          { time: "宵夜", desc: "🌙 宵夜觅食" },
         ],
       });
     } else {
@@ -159,12 +160,12 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
         location: "汕头（躺吃模式 🛋️）",
         activities: [
           { time: "自然醒", desc: "😴 不设闹钟是旅行的底线" },
-          { time: "早午餐", desc: "🍜 粿条 / 粿汁 + 卤味拼盘" },
+          { time: "早午餐", desc: "🍜 早午餐觅食" },
           { time: "回酒店", desc: "❄️ 空调躺平，刷手机，午睡" },
-          { time: "下午茶", desc: "🧊 冰室 + 🍊 梅汁水果" },
+          { time: "下午茶", desc: "🧊 下午茶 / 解暑觅食" },
           { time: "傍晚", desc: "🔥 出动！小公园扫街" },
-          { time: "晚餐", desc: "🦐 砂锅粥 + 生腌", highlight: true },
-          { time: "宵夜", desc: "🍮 鸭母捻 / 🪿 卤鹅夜宵档" },
+          { time: "晚餐", desc: "🍽️ 晚餐觅食（清单里挑）", highlight: true },
+          { time: "宵夜", desc: "🌙 宵夜觅食（糖水 / 卤味）" },
         ],
       });
     }

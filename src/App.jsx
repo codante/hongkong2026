@@ -230,7 +230,12 @@ export default function App() {
         </h2>
 
         {itinerary.map((day, i) => (
-          <DayCard key={`${day.date}-${i}`} day={day} index={i} />
+          <DayCard
+            key={`${day.date}-${i}`}
+            day={day}
+            index={i}
+            scope={`${hkPlan}·${totalDays}天`}
+          />
         ))}
 
         {/* Transport reference */}
