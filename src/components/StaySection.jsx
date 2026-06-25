@@ -116,16 +116,34 @@ export default function StaySection({ stays }) {
                       flexWrap: "wrap",
                     }}
                   >
-                    <span
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 600,
-                        color: COLORS.text,
-                        fontFamily: sansStack,
-                      }}
-                    >
-                      {opt.name}
-                    </span>
+                    {opt.url ? (
+                      <a
+                        href={opt.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: COLORS.accent,
+                          fontFamily: sansStack,
+                          textDecoration: "underline",
+                          textDecorationColor: `${COLORS.accent}66`,
+                        }}
+                      >
+                        {opt.name} 🔗
+                      </a>
+                    ) : (
+                      <span
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: COLORS.text,
+                          fontFamily: sansStack,
+                        }}
+                      >
+                        {opt.name}
+                      </span>
+                    )}
                     <span
                       style={{
                         fontSize: 12,
