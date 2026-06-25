@@ -25,46 +25,46 @@ export const content = {
   ],
 
   // —— 7/25 看戏前的午餐 ——
-  lunch25StayHk: { time: "午餐", desc: "🍜 午餐觅食（到港别耽搁，赶下午场）" },
-  lunch25ToSz: { time: "午餐", desc: "🍜 午餐觅食（行李先寄存西九龙站）" },
+  lunch25StayHk: { time: "午餐", desc: "🍜 寄存行李，午餐觅食" },
+  lunch25ToSz: { time: "午餐", desc: "🍜 寄存行李，午餐觅食" },
 
   // —— 7/25 看戏后：住香港 / 当晚回深圳 ——
   evening25StayHk: [
-    { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
-    { time: "晚餐", desc: "🍽️ 尖沙咀觅食" },
-    { time: "晚上", desc: "🌃 维港夜景，住香港" },
+    { time: "17:00", desc: "🌅 散场，酒店 check-in" },
+    { time: "晚餐", desc: "🍽️ 觅食" },
+    { time: "晚上", desc: "🌃 维港夜景，太平山 (optional)，住香港" },
   ],
   evening25ToSz: [
-    { time: "17:00", desc: "🌅 散场，海滨散步 + 晚餐觅食" },
-    { time: "傍晚", desc: "🚄 取行李，西九龙 → 深圳北（约 23min 过关），站旁酒店睡（纯换乘）" },
+    { time: "17:00", desc: "🌅 散场，自由活动+觅食" },
+    { time: "傍晚", desc: "🚄 取行李，西九龙 → 深圳北，入住站旁酒店（纯换乘）" },
   ],
 
   // —— hk2sz 专属：7/26 香港玩一天 → 晚上去深圳 ——
   hk2szDay26: [
-    { time: "上午", desc: "🎨 香港故宫 / K11 MUSEA / 海港城购物" },
-    { time: "午餐", desc: "🥟 早茶 / 觅食" },
+    { time: "上午", desc: "🎨 退房，香港故宫 / K11 MUSEA / 海港城购物" },
+    { time: "午餐", desc: "🥟 觅食" },
     { time: "下午", desc: "🚶 尖沙咀 / 中环 citywalk（或太平山顶）" },
-    { time: "晚上", desc: "🧳 玩够了退房，西九龙 → 深圳北（约 23min 过关）" },
-    { time: "夜里", desc: "🏨 深圳北站旁酒店（~¥200，纯换乘睡一晚），早睡赶早车" },
+    { time: "晚上", desc: "🧳 西九龙 → 深圳北" },
+    { time: "夜里", desc: "🏨 深圳北站旁酒店，早睡赶早车" },
   ],
 
   // —— 去汕头那天：从深圳出发 / 从香港直达 ——
   toShantouFromSz: [
     { time: "07:54 发车", desc: "🚄 C7220 深圳北 07:54 → 汕头 10:03（¥148）" },
-    { time: "10:03 到", desc: "🏨 到汕头，check-in 放行李" },
+    { time: "10:03 到", desc: "🏨 到汕头，寄存行李" },
     { time: "中午", desc: "🍜 午餐觅食，垫一垫" },
-    { time: "下午", desc: "❄️ 酒店空调躺平，午睡，等太阳下去" },
-    { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-    { time: "晚餐", desc: "🍽️ 到埠第一顿，开吃！（美食清单里挑）", highlight: true },
+    { time: "下午", desc: "❄️ 酒店 check-in" },
+    { time: "傍晚", desc: "🔥 出动！老城区小公园片区？" },
+    { time: "晚餐", desc: "🍽️ 晚餐觅食", highlight: true },
     { time: "宵夜", desc: "🌙 宵夜觅食" },
   ],
   toShantouFromHk: [
-    { time: "早上", desc: "🥟 港式早茶（从容，下午才发车）" },
+    { time: "早上", desc: "🥟 觅食，自由活动，退房" },
     { time: "12:55 发车", desc: "🚄 G6392 西九龙 12:55 → 汕头 15:10（¥305）" },
     { time: "15:10 到", desc: "🏨 到达汕头，check-in" },
     { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
-    { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-    { time: "晚餐", desc: "🍽️ 到埠第一顿，开吃！（美食清单里挑）", highlight: true },
+    { time: "傍晚", desc: "🔥 出动！老城区小公园片区？" },
+    { time: "晚餐", desc: "🍽️ 晚餐觅食", highlight: true },
     { time: "宵夜", desc: "🌙 宵夜觅食" },
   ],
 
@@ -74,9 +74,9 @@ export const content = {
     { time: "早午餐", desc: "🍜 早午餐觅食" },
     { time: "回酒店", desc: "❄️ 空调躺平，刷手机，午睡" },
     { time: "下午茶", desc: "🧊 下午茶 / 解暑觅食" },
-    { time: "傍晚", desc: "🔥 出动！小公园扫街" },
-    { time: "晚餐", desc: "🍽️ 晚餐觅食（清单里挑）", highlight: true },
-    { time: "宵夜", desc: "🌙 宵夜觅食（糖水 / 卤味）" },
+    { time: "傍晚", desc: "🔥 自由活动" },
+    { time: "晚餐", desc: "🍽️ 晚餐觅食", highlight: true },
+    { time: "宵夜", desc: "🌙 宵夜觅食（糖水 / 卤味 / 粥 / 促肉粿条）" },
   ],
 
   // —— 汕头 → 揭阳转场日（仅天数够 + 去揭阳时出现）——
@@ -95,14 +95,14 @@ export const content = {
     { time: "早餐", desc: "🍜 早餐觅食" },
     { time: "上午", desc: "🔥 揭阳市区继续扫街觅食" },
     { time: "午餐", desc: "🍽️ 午餐觅食", highlight: true },
-    { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
+    { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔？）" },
     { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
   ],
   lastDayVisitJy: [
     { time: "早餐", desc: "🥟 早餐觅食（最后一顿！）" },
     { time: "上午", desc: "🚗 前往揭阳（~40min）" },
     { time: "午餐", desc: "🍽️ 揭阳午餐觅食" },
-    { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
+    { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔？）" },
     { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
   ],
   lastDayDirect: [
