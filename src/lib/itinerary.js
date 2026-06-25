@@ -1,116 +1,113 @@
 // 行程生成纯函数：根据选项算出每天的活动时间线。
-// 从原型 TripPlanner 的 useMemo 抽离，逻辑保持一致，便于后续接入 transport 数据。
+// hkPlan 三选一：
+//   "hk1"   — 香港 1 天，看完戏住香港，次日中午 G6392 直达汕头
+//   "sz1"   — 香港 1 天，看完戏回深圳，次日早上 深圳→汕头
+//   "hk2sz" — 香港 2 天，第一晚住香港、第二晚回深圳，次日早上 深圳→汕头
 
-export function buildItinerary({
-  totalDays,
-  hkDays,
-  hkAccom,
-  hkToSt,
-  outbound,
-  visitJy,
-}) {
+export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
+  const hkDays = hkPlan === "hk2sz" ? 2 : 1;
   const chaoshanDays = totalDays - hkDays;
-  const isValid = chaoshanDays >= 1;
-  if (!isValid) return [];
+  if (chaoshanDays < 1) return [];
 
   const days = [];
 
-  // === HK Days ===
   const arrivalDesc =
     outbound === "fly"
       ? "✈️ 国泰 CX345 北京T3 07:25 → 香港 11:00（~3.5h）"
       : "🚄 G897 动卧 前晚 21:01 北京发 → 07:19 到西九龙（¥1280 起）";
   const arrivalTime = outbound === "fly" ? "07:25 起飞" : "07:19 到港";
 
-  if (hkDays === 2) {
+  // 看戏当天（7/25）下午场，散场后随方案不同
+  const showActivities = [
+    { time: "14:30", desc: "🎟️ 入场，香港文化中心大剧院" },
+    { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
+  ];
+
+  if (hkPlan === "hk2sz") {
+    // 7/24 到港，住香港
     days.push({
       date: "7/24",
       weekday: "五",
       location: "香港",
       activities: [
         { time: arrivalTime, desc: arrivalDesc },
+        { time: "上午", desc: "🏨 港青寄存行李，轻装出动" },
         { time: "下午", desc: "🎨 尖沙咀闲逛 / 莫奈展 / 坂本龙一展" },
         { time: "晚餐", desc: "🍽️ 随缘：茶餐厅 / 点心 / Jollibee" },
-        { time: "晚上", desc: "🌃 维港夜景" },
+        { time: "晚上", desc: "🌃 维港夜景，住香港" },
       ],
     });
+    // 7/25 看戏，晚上回深圳
     days.push({
       date: "7/25",
       weekday: "六",
-      location: "香港",
+      location: "香港 → 深圳",
       activities: [
         { time: "上午", desc: "🎨 香港故宫 / K11 MUSEA / 继续看展" },
         { time: "午餐", desc: "🥟 早茶/点心（早点吃，别误场）" },
-        { time: "14:30", desc: "🎟️ 入场，香港文化中心大剧院" },
-        { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
-        { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
-        { time: "晚餐", desc: "🍽️ 海港城 / 尖沙咀觅食" },
-        { time: "晚上", desc: "🌃 维港夜景" },
+        { time: "退房", desc: "🧳 退房寄存行李，轻装看戏" },
+        ...showActivities,
+        { time: "17:00", desc: "🌅 散场，取行李" },
+        { time: "傍晚", desc: "🚄 西九龙 → 深圳（约 20min 过关），入住深圳" },
+        { time: "晚餐", desc: "🍜 深圳吃个晚饭" },
       ],
     });
   } else {
+    // 1 天方案：7/25 当天到港、看戏
+    const stayHk = hkPlan === "hk1";
     days.push({
       date: "7/25",
       weekday: "六",
-      location: hkAccom === "sz" ? "深圳 → 香港" : "香港",
+      location: stayHk ? "香港" : "香港 → 深圳",
       activities: [
         { time: arrivalTime, desc: arrivalDesc },
-        { time: "午餐", desc: "🍜 尖沙咀快速午餐（到港别耽搁，赶下午场）" },
-        { time: "14:30", desc: "🎟️ 入场，香港文化中心大剧院" },
-        { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
-        { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
-        { time: "晚餐", desc: "🍽️ 尖沙咀觅食" },
         {
-          time: "晚上",
-          desc: hkAccom === "sz" ? "🌃 维港夜景，返回深圳住宿" : "🌃 维港夜景",
+          time: "午餐",
+          desc: stayHk
+            ? "🍜 尖沙咀快速午餐（到港别耽搁，赶下午场）"
+            : "🍜 尖沙咀午餐（行李先寄存西九龙站）",
         },
+        ...showActivities,
+        ...(stayHk
+          ? [
+              { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
+              { time: "晚餐", desc: "🍽️ 尖沙咀觅食" },
+              { time: "晚上", desc: "🌃 维港夜景，住香港" },
+            ]
+          : [
+              { time: "17:00", desc: "🌅 散场，海滨散步 + 早晚餐" },
+              { time: "傍晚", desc: "🚄 取行李，西九龙 → 深圳（约 20min 过关），入住深圳" },
+            ]),
       ],
     });
   }
 
-  // === Travel Day (HK → Shantou) ===
+  // === Travel Day (去汕头, 7/26) ===
+  const fromSz = hkPlan !== "hk1"; // sz1 / hk2sz 从深圳出发
   const travelDay = {
     date: "7/26",
     weekday: "日",
-    location:
-      hkAccom === "sz"
-        ? "深圳 → 汕头"
-        : hkToSt === "direct"
-        ? "香港 → 汕头"
-        : "香港 → 深圳 → 汕头",
-    activities: [],
+    location: fromSz ? "深圳 → 汕头" : "香港 → 汕头",
+    activities: fromSz
+      ? [
+          { time: "早上", desc: "🥟 深圳吃个早餐" },
+          { time: "上午", desc: "🚄 深圳 → 汕头（约 2-2.5h，¥200）" },
+          { time: "中午", desc: "🏨 到达汕头，check-in" },
+          { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
+          { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
+          { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
+          { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
+        ]
+      : [
+          { time: "早上", desc: "🥟 最后一顿港式早茶（从容，下午才发车）" },
+          { time: "12:55 发车", desc: "🚄 G6392 西九龙 12:55 → 汕头 15:10（¥305）" },
+          { time: "15:10 到", desc: "🏨 到达汕头，check-in" },
+          { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
+          { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
+          { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
+          { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
+        ],
   };
-
-  if (hkAccom === "sz") {
-    travelDay.location = "深圳 → 汕头";
-    travelDay.activities = [
-      { time: "早上", desc: "🥟 深圳吃个早餐" },
-      { time: "上午", desc: "🚄 深圳 → 汕头（班次多，约2-2.5h）" },
-      { time: "中午", desc: "🏨 到达汕头，check-in" },
-      { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
-      { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-      { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
-      { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
-    ];
-  } else if (hkToSt === "direct") {
-    travelDay.activities = [
-      { time: "早上", desc: "🥟 最后一顿港式早茶（从容，下午才发车）" },
-      { time: "12:55 发车", desc: "🚄 G6392 西九龙 12:55 → 汕头 15:10（¥305）" },
-      { time: "15:10 到", desc: "🏨 到达汕头，check-in" },
-      { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
-      { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
-      { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
-      { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
-    ];
-  } else {
-    travelDay.activities = [
-      { time: "上午", desc: "🚄 香港 → 深圳 → 转车去汕头" },
-      { time: "下午", desc: "🏨 到达汕头，check-in" },
-      { time: "傍晚", desc: "❄️ 休息后出动" },
-      { time: "晚餐", desc: "🥩 牛肉火锅！！", highlight: true },
-      { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶" },
-    ];
-  }
   days.push(travelDay);
 
   // === Remaining Chaoshan Days ===
@@ -121,12 +118,9 @@ export function buildItinerary({
     const weekdays = { 27: "一", 28: "二", 29: "三", 30: "四", 31: "五" };
     const isLast = i === remainingFull - 1;
     const isSecondToLast = i === remainingFull - 2;
-
-    // When enough days + visiting Jieyang: dedicate last 2 days
     const jyExpanded = visitJy && remainingFull >= 3;
 
     if (isLast) {
-      // Last day - go home
       const day = {
         date: `7/${dateNum}`,
         weekday: weekdays[dateNum] || "?",
@@ -162,7 +156,6 @@ export function buildItinerary({
       }
       days.push(day);
     } else if (isSecondToLast && jyExpanded) {
-      // Transfer to Jieyang day - morning in Shantou, afternoon/evening in Jieyang
       days.push({
         date: `7/${dateNum}`,
         weekday: weekdays[dateNum] || "?",
@@ -178,7 +171,6 @@ export function buildItinerary({
         ],
       });
     } else {
-      // Full Shantou day
       days.push({
         date: `7/${dateNum}`,
         weekday: weekdays[dateNum] || "?",
@@ -196,31 +188,22 @@ export function buildItinerary({
     }
   }
 
-  // Edge case: if chaoshanDays === 1, the travel day IS the last day
-  if (chaoshanDays === 1) {
-    const lastDay = days[days.length - 1];
-    lastDay.location += " → 揭阳飞北京";
-    lastDay.activities.push({
-      time: "深夜",
-      desc: "✈️ 揭阳潮汕机场红眼航班？（很赶！）",
-    });
-  }
-
   return days;
 }
 
-// 行程提示/警告（与原型一致）
-export function buildWarnings({ totalDays, hkDays, hkAccom }) {
+// 行程提示/警告
+export function buildWarnings({ totalDays, hkPlan }) {
+  const hkDays = hkPlan === "hk2sz" ? 2 : 1;
   const chaoshanDays = totalDays - hkDays;
   const warnings = [];
-  if (chaoshanDays <= 1) {
-    warnings.push("⚠️ 潮汕只有1天，会非常赶！建议增加总天数或减少香港天数");
+  if (hkPlan === "hk2sz" && totalDays === 4) {
+    warnings.push("💡 香港 2 天 + 潮汕 2 天 = 潮汕实际只有 ~1.5 天吃喝时间");
   }
-  if (hkDays === 2 && totalDays === 4) {
-    warnings.push("💡 香港2天 + 潮汕2天 = 潮汕实际只有~1.5天吃喝时间");
+  if (hkPlan !== "hk1") {
+    warnings.push("💡 回深圳住更省钱、深圳去汕头班次多；但看完戏当晚要拖行李过关");
   }
-  if (hkAccom === "sz") {
-    warnings.push("💡 住深圳更便宜，且去汕头的高铁班次比香港出发更多");
+  if (hkPlan === "hk1") {
+    warnings.push("💡 住香港最省心：看完戏悠闲过夜，次日中午 G6392 直达汕头");
   }
   return warnings;
 }

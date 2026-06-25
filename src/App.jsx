@@ -11,38 +11,23 @@ import { buildLegs, buildStays } from "./lib/plan.js";
 
 export default function App() {
   const [totalDays, setTotalDays] = useState(4);
-  const [hkDays, setHkDays] = useState(1);
-  const [hkAccom, setHkAccom] = useState("hk");
-  const [hkToSt, setHkToSt] = useState("direct");
+  const [hkPlan, setHkPlan] = useState("hk1"); // hk1 / sz1 / hk2sz
   const [outbound, setOutbound] = useState("sleeper"); // fly / sleeper（去程已敲定高铁动卧）
   const [visitJy, setVisitJy] = useState(true);
 
+  const hkDays = hkPlan === "hk2sz" ? 2 : 1;
   const chaoshanDays = totalDays - hkDays;
 
   const itinerary = useMemo(
     () =>
-      buildItinerary({
-        totalDays,
-        hkDays,
-        hkAccom,
-        hkToSt,
-        outbound,
-        visitJy,
-      }),
-    [totalDays, hkDays, hkAccom, hkToSt, outbound, visitJy]
+      buildItinerary({ totalDays, hkPlan, outbound, visitJy }),
+    [totalDays, hkPlan, outbound, visitJy]
   );
 
-  const warnings = buildWarnings({ totalDays, hkDays, hkAccom });
+  const warnings = buildWarnings({ totalDays, hkPlan });
 
-  const legs = buildLegs({
-    outbound,
-    hkAccom,
-    hkToSt,
-    visitJy,
-    totalDays,
-    hkDays,
-  });
-  const stays = buildStays({ totalDays, hkDays, hkAccom, visitJy });
+  const legs = buildLegs({ outbound, hkPlan, visitJy });
+  const stays = buildStays({ totalDays, hkPlan, visitJy });
 
   return (
     <div
@@ -98,29 +83,35 @@ export default function App() {
             />
           </OptionCard>
 
-          <OptionCard label="香港停留" icon="🏙️">
+          <OptionCard label="香港方案" icon="🏙️">
             <Toggle
+              compact
               options={[
-                { value: 1, label: "1天（看戏就走）" },
-                { value: 2, label: "2天（多逛逛）" },
+                { value: "hk1", label: "1天·住香港" },
+                { value: "sz1", label: "1天·回深圳" },
+                { value: "hk2sz", label: "2天·港转深" },
               ]}
-              value={hkDays}
-              onChange={(v) => {
-                setHkDays(v);
-                if (v >= totalDays) setTotalDays(v + 1);
+              value={hkPlan}
+              onChange={setHkPlan}
+            />
+            <div
+              style={{
+                marginTop: 6,
+                padding: "6px 10px",
+                background: COLORS.tagBg,
+                borderRadius: 6,
+                fontSize: 12,
+                color: COLORS.textLight,
+                fontFamily: sansStack,
+                lineHeight: 1.5,
               }}
-            />
-          </OptionCard>
-
-          <OptionCard label="香港住哪" icon="🏨">
-            <Toggle
-              options={[
-                { value: "hk", label: "住香港" },
-                { value: "sz", label: "住深圳（省钱）" },
-              ]}
-              value={hkAccom}
-              onChange={setHkAccom}
-            />
+            >
+              {hkPlan === "hk1"
+                ? "看完戏悠闲住香港，次日中午 G6392 直达汕头（最省心）"
+                : hkPlan === "sz1"
+                ? "看完戏回深圳住（省钱），次日早上深圳去汕头"
+                : "玩 2 天：第一晚香港、第二晚回深圳，次日早上去汕头"}
+            </div>
           </OptionCard>
 
           <OptionCard label="北京→香港" icon="✈️">
@@ -146,32 +137,6 @@ export default function App() {
               >
                 🚄 前一晚北京出发，早上到港/深（价格≈机票）
               </div>
-            )}
-          </OptionCard>
-
-          <OptionCard label="去汕头交通" icon="🚄">
-            {hkAccom === "sz" ? (
-              <div
-                style={{
-                  padding: "8px 12px",
-                  background: COLORS.tagBg,
-                  borderRadius: 8,
-                  fontSize: 13,
-                  color: COLORS.textLight,
-                  fontFamily: sansStack,
-                }}
-              >
-                🚄 深圳直达汕头（班次多，~2-2.5h）
-              </div>
-            ) : (
-              <Toggle
-                options={[
-                  { value: "direct", label: "西九龙直达（~3h）" },
-                  { value: "via_sz", label: "经深圳中转" },
-                ]}
-                value={hkToSt}
-                onChange={setHkToSt}
-              />
             )}
           </OptionCard>
 

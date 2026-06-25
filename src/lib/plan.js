@@ -2,25 +2,14 @@
 import { legs } from "../data/transport.js";
 
 // 返回当前方案涉及的跨城交通段（按出行顺序）
-export function buildLegs({
-  outbound,
-  hkAccom,
-  hkToSt,
-  visitJy,
-  totalDays,
-  hkDays,
-}) {
+export function buildLegs({ outbound, hkPlan, visitJy }) {
   const keys = [];
 
   // 北京 → 香港
   keys.push(outbound === "fly" ? "bj_hk_fly" : "bj_hk_sleeper");
 
-  // 香港/深圳 → 汕头
-  if (hkAccom === "sz") {
-    keys.push("sz_st");
-  } else {
-    keys.push(hkToSt === "direct" ? "hk_st_direct" : "hk_st_via_sz");
-  }
+  // 去汕头：住香港走 G6392 直达；回深圳走深圳→汕头
+  keys.push(hkPlan === "hk1" ? "hk_st_direct" : "sz_st");
 
   // 返程（含汕头→揭阳接驳）
   if (visitJy) keys.push("st_jy");
@@ -30,15 +19,24 @@ export function buildLegs({
 }
 
 // 返回当前方案各城过夜：[{ key, nights }]，最后一天离开不计过夜
-export function buildStays({ totalDays, hkDays, hkAccom, visitJy }) {
+export function buildStays({ totalDays, hkPlan, visitJy }) {
+  const hkDays = hkPlan === "hk2sz" ? 2 : 1;
   const chaoshanDays = totalDays - hkDays;
-  const remainingFull = chaoshanDays - 1; // 去掉抵达当天的赶路
+  const remainingFull = chaoshanDays - 1;
   const jyExpanded = visitJy && remainingFull >= 3;
 
   const stays = [];
 
-  // 香港期间：住香港 or 住深圳
-  stays.push({ key: hkAccom === "sz" ? "sz" : "hk", nights: hkDays });
+  // 香港段住宿
+  if (hkPlan === "hk1") {
+    stays.push({ key: "hk", nights: 1 });
+  } else if (hkPlan === "sz1") {
+    stays.push({ key: "sz", nights: 1 });
+  } else {
+    // hk2sz：第一晚香港、第二晚深圳
+    stays.push({ key: "hk", nights: 1 });
+    stays.push({ key: "sz", nights: 1 });
+  }
 
   // 潮汕过夜总数（最后一天离开不过夜）
   const chaoshanNights = chaoshanDays - 1;

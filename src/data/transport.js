@@ -28,14 +28,6 @@ export const legs = {
     price: "二等 ¥305",
     note: "✅ 直达汕头站（非潮汕站），不用接驳；上午还能从容吃顿早茶再上车",
   },
-  hk_st_via_sz: {
-    label: "香港 → 深圳 → 汕头",
-    mode: "🚄 高铁中转",
-    carrier: "广深港 + 广汕高铁",
-    duration: "约 4–5h（含换乘）",
-    price: "合计约 ¥300–400",
-    note: "西九龙→深圳北约 20min，再换乘去汕头；班次更灵活",
-  },
   sz_st: {
     label: "深圳 → 汕头",
     mode: "🚄 高铁直达",
