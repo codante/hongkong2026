@@ -40,10 +40,12 @@ export function buildItinerary({
       location: "香港",
       activities: [
         { time: "上午", desc: "🎨 香港故宫 / K11 MUSEA / 继续看展" },
-        { time: "午餐", desc: "🥟 早茶/点心" },
-        { time: "下午", desc: "☕ 休息，为晚上蓄能" },
-        { time: "20:00", desc: "🎭 JCS — 香港文化中心大剧院", highlight: true },
-        { time: "散场", desc: "🌃 维港夜景 + 宵夜" },
+        { time: "午餐", desc: "🥟 早茶/点心（早点吃，别误场）" },
+        { time: "14:30", desc: "🎟️ 入场，香港文化中心大剧院" },
+        { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
+        { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
+        { time: "晚餐", desc: "🍽️ 海港城 / 尖沙咀觅食" },
+        { time: "晚上", desc: "🌃 维港夜景" },
       ],
     });
   } else {
@@ -53,10 +55,13 @@ export function buildItinerary({
       location: hkAccom === "sz" ? "深圳 → 香港" : "香港",
       activities: [
         { time: arrivalTime, desc: arrivalDesc },
-        { time: "下午", desc: "🚶 尖沙咀随逛 + 随缘吃" },
-        { time: "20:00", desc: "🎭 JCS — 香港文化中心大剧院", highlight: true },
+        { time: "午餐", desc: "🍜 尖沙咀快速午餐（到港别耽搁，赶下午场）" },
+        { time: "14:30", desc: "🎟️ 入场，香港文化中心大剧院" },
+        { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
+        { time: "17:00", desc: "🌅 散场，尖沙咀海滨长廊散步" },
+        { time: "晚餐", desc: "🍽️ 尖沙咀觅食" },
         {
-          time: "散场",
+          time: "晚上",
           desc: hkAccom === "sz" ? "🌃 维港夜景，返回深圳住宿" : "🌃 维港夜景",
         },
       ],

@@ -286,7 +286,7 @@ export default function App() {
             borderTop: `1px solid ${COLORS.border}`,
           }}
         >
-          JCS 🎭 7/25 20:00 @ 香港文化中心大剧院
+          JCS 🎭 7/25 15:00 下午场 @ 香港文化中心大剧院
           <br />
           切换上方选项，行程自动更新 ✨
         </div>
