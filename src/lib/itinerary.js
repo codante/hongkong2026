@@ -89,9 +89,9 @@ export function buildItinerary({
     ];
   } else if (hkToSt === "direct") {
     travelDay.activities = [
-      { time: "早上", desc: "🥟 最后一顿港式早茶" },
-      { time: "上午", desc: "🚄 西九龙站 → 汕头站（~2h50min）" },
-      { time: "中午", desc: "🏨 到达汕头，check-in" },
+      { time: "早上", desc: "🥟 最后一顿港式早茶（从容，下午才发车）" },
+      { time: "12:55 发车", desc: "🚄 G6392 西九龙 12:55 → 汕头 15:10（¥305）" },
+      { time: "15:10 到", desc: "🏨 到达汕头，check-in" },
       { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
       { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
       { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },

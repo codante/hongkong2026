@@ -23,10 +23,10 @@ export const legs = {
   hk_st_direct: {
     label: "香港西九龙 → 汕头",
     mode: "🚄 高铁直达",
-    carrier: "汕港高速动车组",
-    duration: "约 3–3.5h",
-    price: "二等约 ¥300",
-    note: "⚠️ 认准终到『汕头站』的车（约 3 对/天）；其余车到潮汕站需再接驳约 1h",
+    carrier: "G6392（西九龙 12:55 → 汕头 15:10）",
+    duration: "约 2h15m",
+    price: "二等 ¥305",
+    note: "✅ 直达汕头站（非潮汕站），不用接驳；上午还能从容吃顿早茶再上车",
   },
   hk_st_via_sz: {
     label: "香港 → 深圳 → 汕头",
