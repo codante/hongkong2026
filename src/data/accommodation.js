@@ -8,21 +8,15 @@ export const stayInfo = {
     reason: "步行可达香港文化中心，地铁四通八达",
     options: [
       {
-        name: "康境酒店 Hotel Stage",
-        price: "¥800–1200/晚",
-        note: "佐敦尖沙咀交界，精品质感",
-        url: "https://www.agoda.com/zh-cn/hotel-stage/hotel/hong-kong-hk.html",
-      },
-      {
         name: "港青酒店 YMCA",
-        price: "¥520–900/晚",
+        price: "¥700+/晚",
         note: "尖沙咀站 3min，泳池 + 部分海景",
         url: "https://hotels.ctrip.com/hotels/458487.html",
       },
       {
         name: "宝御酒店 Hotel Pravo",
-        price: "¥420–900/晚",
-        note: "海港城旁，房间大、性价比高",
+        price: "¥700+/晚",
+        note: "海港城旁，房间大",
         url: "https://hotels.ctrip.com/hotels/2213797.html",
       },
     ],
