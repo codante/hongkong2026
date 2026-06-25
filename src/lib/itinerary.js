@@ -47,7 +47,7 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
           ]
         : [
             { time: "17:00", desc: "🌅 散场，海滨散步 + 早晚餐" },
-            { time: "傍晚", desc: "🚄 取行李，西九龙 → 深圳（约 20min 过关），入住深圳" },
+            { time: "晚上", desc: "🚄 取行李，西九龙 → 深圳北（约 23min 过关），站旁酒店睡（纯换乘）" },
           ]),
     ],
   });
@@ -62,8 +62,8 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
         { time: "上午", desc: "🎨 香港故宫 / K11 MUSEA / 海港城购物" },
         { time: "午餐", desc: "🥟 早茶 / 心仪餐厅" },
         { time: "下午", desc: "🚶 尖沙咀 / 中环 citywalk（或太平山顶）" },
-        { time: "傍晚", desc: "🧳 退房，西九龙 → 深圳（约 20min 过关）" },
-        { time: "晚上", desc: "🏨 入住深圳（~¥200，省一晚），深圳吃夜宵" },
+        { time: "晚上", desc: "🧳 玩够了退房，西九龙 → 深圳北（约 23min 过关）" },
+        { time: "夜里", desc: "🏨 深圳北站旁酒店（~¥200，纯换乘睡一晚），早睡赶早车" },
       ],
     });
   }
@@ -77,10 +77,10 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
     location: fromSz ? "深圳 → 汕头" : "香港 → 汕头",
     activities: fromSz
       ? [
-          { time: "早上", desc: "🥟 深圳吃个早餐" },
-          { time: "上午", desc: "🚄 深圳 → 汕头（约 2-2.5h，¥200）" },
-          { time: "中午", desc: "🏨 到达汕头，check-in" },
-          { time: "下午", desc: "❄️ 酒店空调躺平，等太阳下去" },
+          { time: "清晨", desc: "🚄 退房赶最早班高铁，深圳北 → 汕头（约 2-2.5h，¥200）" },
+          { time: "上午", desc: "🏨 到汕头，check-in 放行李" },
+          { time: "中午", desc: "🍜 汕头第一口：粿条 / 牛肉丸垫垫" },
+          { time: "下午", desc: "❄️ 酒店空调躺平，午睡，等太阳下去" },
           { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
           { time: "晚餐", desc: "🥩 牛肉火锅！！（第一顿给最重要的）", highlight: true },
           { time: "宵夜", desc: "🍊 甘草水果 + 功夫茶消食" },
