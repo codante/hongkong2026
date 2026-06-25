@@ -20,6 +20,8 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
     location: stayHkNight1 ? C.locations.hkStay : C.locations.hkToSz,
     activities: [
       arrival,
+      // 动卧 7:19 到才有完整上午看展；飞机 11:00 到则跳过直接午餐
+      ...(outbound === "sleeper" ? [C.morning25] : []),
       stayHkNight1 ? C.lunch25StayHk : C.lunch25ToSz,
       ...C.show,
       ...(stayHkNight1 ? C.evening25StayHk : C.evening25ToSz),

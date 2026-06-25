@@ -24,9 +24,10 @@ export const content = {
     { time: "15:00", desc: "🎭 JCS 下午场（约 2h）", highlight: true },
   ],
 
-  // —— 7/25 看戏前的午餐 ——
-  lunch25StayHk: { time: "午餐", desc: "🍜 寄存行李，午餐觅食" },
-  lunch25ToSz: { time: "午餐", desc: "🍜 寄存行李，午餐觅食" },
+  // —— 7/25 看戏前：上午看展（仅动卧 7:19 早到时才有这段）+ 午餐 ——
+  morning25: { time: "上午", desc: "🎨 寄存行李，看展（莫奈展 / 坂本龙一展）" },
+  lunch25StayHk: { time: "午餐", desc: "🍜 午餐觅食" },
+  lunch25ToSz: { time: "午餐", desc: "🍜 午餐觅食" },
 
   // —— 7/25 看戏后：住香港 / 当晚回深圳 ——
   evening25StayHk: [
