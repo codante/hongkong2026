@@ -5,23 +5,33 @@ export default function OptionCard({ label, children, icon }) {
     <div
       style={{
         background: COLORS.card,
-        borderRadius: 10,
-        padding: "12px 14px",
         border: `1px solid ${COLORS.border}`,
+        borderRadius: 14,
+        padding: "15px 16px",
       }}
     >
       <div
         style={{
-          fontSize: 12,
-          color: COLORS.textLight,
-          marginBottom: 8,
-          fontFamily: sansStack,
-          fontWeight: 500,
-          letterSpacing: 0.5,
-          textTransform: "uppercase",
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 12,
         }}
       >
-        {icon} {label}
+        <span className="ms" style={{ fontSize: 17, color: COLORS.textFaint }}>
+          {icon}
+        </span>
+        <span
+          style={{
+            fontSize: 11,
+            letterSpacing: 2,
+            textTransform: "uppercase",
+            color: COLORS.textDim,
+            fontWeight: 500,
+          }}
+        >
+          {label}
+        </span>
       </div>
       {children}
     </div>

@@ -118,7 +118,7 @@ export const content = {
     hkToSz: "香港 → 深圳",
     szToShantou: "深圳 → 汕头",
     hkToShantou: "香港 → 汕头",
-    shantouFull: "汕头（躺吃模式 🛋️）",
+    shantouFull: "汕头（躺吃模式）",
     shantouToJieyang: "汕头 → 揭阳",
     lastJyExpanded: "揭阳觅食 → 飞北京",
     lastVisitJy: "汕头 → 揭阳觅食 → 飞北京",

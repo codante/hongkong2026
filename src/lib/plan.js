@@ -11,8 +11,7 @@ export function buildLegs({ outbound, hkPlan, visitJy }) {
   // 去汕头：住香港走 G6392 直达；回深圳走深圳→汕头
   keys.push(hkPlan === "hk1" ? "hk_st_direct" : "sz_st");
 
-  // 返程（含汕头→揭阳接驳）
-  if (visitJy) keys.push("st_jy");
+  // 返程
   keys.push("jy_bj_fly");
 
   return keys.map((k) => ({ key: k, ...legs[k] }));

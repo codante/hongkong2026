@@ -26,15 +26,15 @@ export const stayInfo = {
     area: "深圳北站旁",
     reason: "西九龙高铁直达深圳北(~23min)，次日同站发车去汕头——纯换乘睡一晚",
     options: [
-      { name: "待定（你调研中）", price: "—", note: "深圳北站旁，纯换乘睡一晚，回头发我补上" },
+      { name: "待定", price: "—", note: "深圳北站旁，纯换乘睡一晚" },
     ],
   },
   st: {
     city: "🦐 汕头",
-    area: "小公园老城",
-    reason: "觅食核心区，骑楼风情，扫街方便",
+    area: "待定",
+    reason: "调研中",
     options: [
-      { name: "待定（你调研中）", price: "—", note: "你有更平价的选择，回头发我补上" },
+      { name: "待定", price: "—", note: "调研中" },
     ],
   },
   jy: {

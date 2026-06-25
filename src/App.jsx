@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { COLORS, fontStack, sansStack } from "./theme.js";
+import { COLORS, fontStack, sansStack, monoStack } from "./theme.js";
 import Toggle from "./components/Toggle.jsx";
 import OptionCard from "./components/OptionCard.jsx";
 import DayCard from "./components/DayCard.jsx";
@@ -11,23 +11,28 @@ import { buildLegs, buildStays } from "./lib/plan.js";
 
 export default function App() {
   const [totalDays, setTotalDays] = useState(4);
-  const [hkPlan, setHkPlan] = useState("hk1"); // hk1 / sz1 / hk2sz
-  const [outbound, setOutbound] = useState("sleeper"); // fly / sleeper（去程已敲定高铁动卧）
+  const [hkPlan, setHkPlan] = useState("hk1");
+  const [outbound, setOutbound] = useState("sleeper");
   const [visitJy, setVisitJy] = useState(true);
 
   const hkDays = hkPlan === "hk2sz" ? 2 : 1;
   const chaoshanDays = totalDays - hkDays;
 
   const itinerary = useMemo(
-    () =>
-      buildItinerary({ totalDays, hkPlan, outbound, visitJy }),
+    () => buildItinerary({ totalDays, hkPlan, outbound, visitJy }),
     [totalDays, hkPlan, outbound, visitJy]
   );
 
   const warnings = buildWarnings({ totalDays, hkPlan });
-
   const legs = buildLegs({ outbound, hkPlan, visitJy });
   const stays = buildStays({ totalDays, hkPlan, visitJy });
+
+  const hkNote =
+    hkPlan === "hk1"
+      ? "7/25 看戏住香港 → 7/26 中午 G6392 直达汕头（最省心，香港房 ~¥700）"
+      : hkPlan === "sz1"
+      ? "7/25 看完戏当晚回深圳住（省钱）→ 7/26 早上深圳去汕头"
+      : "7/25 看戏住香港 → 7/26 玩一天、晚上去深圳住（省房钱）→ 7/27 去汕头";
 
   return (
     <div
@@ -35,44 +40,94 @@ export default function App() {
         background: COLORS.bg,
         minHeight: "100vh",
         fontFamily: sansStack,
-        padding: 0,
+        color: COLORS.textSoft,
+        WebkitFontSmoothing: "antialiased",
       }}
     >
       {/* Header */}
       <div
         style={{
-          background: `linear-gradient(135deg, ${COLORS.accent}, ${COLORS.gold})`,
-          padding: "28px 20px 20px",
-          color: "#fff",
+          position: "relative",
+          overflow: "hidden",
+          borderBottom: `1px solid ${COLORS.border}`,
+          background: `radial-gradient(120% 140% at 80% -10%, rgba(87,201,154,.10), transparent 55%), linear-gradient(180deg, #151C25, ${COLORS.bg})`,
         }}
       >
-        <h1
+        <div
           style={{
-            fontFamily: fontStack,
-            fontSize: 22,
-            margin: 0,
-            fontWeight: 700,
-            letterSpacing: 1,
+            maxWidth: 880,
+            margin: "0 auto",
+            padding: "46px 28px 34px",
           }}
         >
-          🎭 香港 × 潮汕 行程规划器
-        </h1>
-        <p style={{ margin: "6px 0 0", fontSize: 13, opacity: 0.9 }}>
-          切换选项 → 自动生成行程方案 → 截图发给朋友讨论
-        </p>
+          <div
+            style={{
+              fontFamily: monoStack,
+              fontSize: 11,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+              color: COLORS.accent,
+              marginBottom: 14,
+            }}
+          >
+            HONG KONG &nbsp;✦&nbsp; CHAOSHAN
+          </div>
+          <h1
+            style={{
+              fontFamily: fontStack,
+              fontWeight: 900,
+              fontSize: 38,
+              lineHeight: 1.12,
+              margin: 0,
+              letterSpacing: 1,
+              color: COLORS.text,
+            }}
+          >
+            香港{" "}
+            <span style={{ color: COLORS.accent, fontWeight: 500 }}>×</span>{" "}
+            潮汕
+            <span
+              style={{
+                fontWeight: 500,
+                fontSize: 24,
+                color: COLORS.textMuted,
+                marginLeft: 14,
+              }}
+            >
+              行程规划器
+            </span>
+          </h1>
+          <p
+            style={{
+              margin: "16px 0 0",
+              fontSize: 13,
+              color: COLORS.textDim,
+              fontFamily: monoStack,
+              letterSpacing: 0.3,
+            }}
+          >
+            切换选项 &nbsp;→&nbsp; 自动生成行程方案
+          </p>
+        </div>
       </div>
 
-      <div style={{ padding: "16px 16px 40px" }}>
-        {/* Decision Toggles */}
+      <div
+        style={{
+          maxWidth: 880,
+          margin: "0 auto",
+          padding: "26px 28px 60px",
+        }}
+      >
+        {/* Option Cards */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-            gap: 10,
-            marginBottom: 20,
+            gridTemplateColumns: "repeat(auto-fit, minmax(214px, 1fr))",
+            gap: 12,
+            marginBottom: 22,
           }}
         >
-          <OptionCard label="总天数" icon="📅">
+          <OptionCard label="总天数" icon="date_range">
             <Toggle
               options={[
                 { value: 4, label: "4天" },
@@ -83,7 +138,7 @@ export default function App() {
             />
           </OptionCard>
 
-          <OptionCard label="香港方案" icon="🏙️">
+          <OptionCard label="香港方案" icon="location_city">
             <Toggle
               compact
               options={[
@@ -96,25 +151,38 @@ export default function App() {
             />
             <div
               style={{
-                marginTop: 6,
-                padding: "6px 10px",
-                background: COLORS.tagBg,
-                borderRadius: 6,
-                fontSize: 12,
-                color: COLORS.textLight,
-                fontFamily: sansStack,
-                lineHeight: 1.5,
+                marginTop: 10,
+                display: "flex",
+                gap: 7,
+                padding: "9px 11px",
+                background: COLORS.cardDark,
+                borderRadius: 9,
               }}
             >
-              {hkPlan === "hk1"
-                ? "7/25 看戏住香港 → 7/26 中午 G6392 直达汕头（最省心，香港房 ~¥700）"
-                : hkPlan === "sz1"
-                ? "7/25 看完戏当晚回深圳住（省钱）→ 7/26 早上深圳去汕头"
-                : "7/25 看戏住香港 → 7/26 玩一天、晚上去深圳住（省房钱）→ 7/27 去汕头"}
+              <span
+                className="ms"
+                style={{
+                  fontSize: 15,
+                  color: COLORS.accent,
+                  flexShrink: 0,
+                  paddingTop: 1,
+                }}
+              >
+                tips_and_updates
+              </span>
+              <span
+                style={{
+                  fontSize: 12,
+                  color: COLORS.textMuted,
+                  lineHeight: 1.55,
+                }}
+              >
+                {hkNote}
+              </span>
             </div>
           </OptionCard>
 
-          <OptionCard label="北京→香港" icon="✈️">
+          <OptionCard label="北京 → 香港" icon="flight">
             <Toggle
               options={[
                 { value: "fly", label: "白天航班" },
@@ -126,21 +194,39 @@ export default function App() {
             {outbound === "sleeper" && (
               <div
                 style={{
-                  marginTop: 6,
-                  padding: "6px 10px",
-                  background: COLORS.goldLight,
-                  borderRadius: 6,
-                  fontSize: 12,
-                  color: COLORS.gold,
-                  fontFamily: sansStack,
+                  marginTop: 10,
+                  display: "flex",
+                  gap: 7,
+                  padding: "9px 11px",
+                  background: "rgba(87,201,154,.07)",
+                  borderRadius: 9,
                 }}
               >
-                🚄 前一晚北京出发，早上到港/深（价格≈机票）
+                <span
+                  className="ms"
+                  style={{
+                    fontSize: 15,
+                    color: COLORS.accent,
+                    flexShrink: 0,
+                    paddingTop: 1,
+                  }}
+                >
+                  train
+                </span>
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: COLORS.textMid,
+                    lineHeight: 1.55,
+                  }}
+                >
+                  前一晚北京出发，早上到港/深（价格≈机票）
+                </span>
               </div>
             )}
           </OptionCard>
 
-          <OptionCard label="揭阳" icon="🍜">
+          <OptionCard label="揭阳" icon="ramen_dining">
             <Toggle
               options={[
                 { value: false, label: "纯路过机场" },
@@ -152,13 +238,13 @@ export default function App() {
           </OptionCard>
         </div>
 
-        {/* Summary Bar */}
+        {/* Summary Tags */}
         <div
           style={{
             display: "flex",
             gap: 8,
             flexWrap: "wrap",
-            marginBottom: 12,
+            marginBottom: 14,
           }}
         >
           {[
@@ -167,7 +253,8 @@ export default function App() {
             ...(visitJy
               ? [
                   {
-                    label: visitJy && chaoshanDays >= 4 ? "揭阳 1.5天" : "揭阳觅食",
+                    label:
+                      chaoshanDays >= 4 ? "揭阳 1.5天" : "揭阳觅食",
                     color: COLORS.jy,
                   },
                 ]
@@ -176,15 +263,26 @@ export default function App() {
             <span
               key={tag.label}
               style={{
-                fontSize: 12,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 7,
+                fontSize: 12.5,
                 fontWeight: 600,
                 color: tag.color,
-                background: `${tag.color}18`,
-                padding: "4px 12px",
+                background: `${tag.color}1A`,
+                border: `1px solid ${tag.color}33`,
+                padding: "5px 13px 5px 11px",
                 borderRadius: 20,
-                fontFamily: sansStack,
               }}
             >
+              <span
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: "50%",
+                  background: tag.color,
+                }}
+              />
               {tag.label}
             </span>
           ))}
@@ -192,68 +290,161 @@ export default function App() {
 
         {/* Warnings */}
         {warnings.length > 0 && (
-          <div style={{ marginBottom: 16 }}>
-            {warnings.map((w, i) => (
-              <div
-                key={i}
-                style={{
-                  fontSize: 13,
-                  color: COLORS.accentDark,
-                  fontFamily: sansStack,
-                  background: COLORS.accentLight,
-                  padding: "8px 12px",
-                  borderRadius: 8,
-                  marginBottom: 4,
-                  lineHeight: 1.5,
-                }}
-              >
-                {w}
-              </div>
-            ))}
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: 8,
+              marginBottom: 6,
+            }}
+          >
+            {warnings.map((w, i) => {
+              const isWarn = w.startsWith("⚠️");
+              const barColor = isWarn ? COLORS.warn : COLORS.gold;
+              const text = w.replace(/^(?:💡|⚠️)\s*/, "");
+              return (
+                <div
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    alignItems: "flex-start",
+                    padding: "11px 14px",
+                    background: isWarn ? COLORS.warnBg : COLORS.infoBg,
+                    borderLeft: `3px solid ${barColor}`,
+                    borderRadius: "0 9px 9px 0",
+                  }}
+                >
+                  <span
+                    className="ms"
+                    style={{
+                      fontSize: 17,
+                      color: barColor,
+                      flexShrink: 0,
+                      paddingTop: 1,
+                    }}
+                  >
+                    {isWarn ? "warning" : "tips_and_updates"}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: 13,
+                      color: "#D9DEE5",
+                      lineHeight: 1.55,
+                    }}
+                  >
+                    {text}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         )}
 
-        {/* Timeline */}
-        <h2
+        {/* Itinerary Section Header */}
+        <div
           style={{
-            fontFamily: fontStack,
-            fontSize: 18,
-            color: COLORS.text,
-            margin: "20px 0 16px",
-            fontWeight: 700,
+            display: "flex",
+            alignItems: "center",
+            gap: 11,
+            margin: "34px 0 18px",
           }}
         >
-          📋 行程方案
-        </h2>
+          <span
+            style={{
+              width: 3,
+              height: 19,
+              background: COLORS.accent,
+              borderRadius: 2,
+            }}
+          />
+          <span className="ms" style={{ fontSize: 20, color: COLORS.accent }}>
+            route
+          </span>
+          <h2
+            style={{
+              fontFamily: fontStack,
+              fontSize: 19,
+              fontWeight: 700,
+              color: COLORS.text,
+              margin: 0,
+              letterSpacing: 0.5,
+            }}
+          >
+            行程方案
+          </h2>
+          <span
+            style={{
+              marginLeft: "auto",
+              fontFamily: monoStack,
+              fontSize: 10,
+              letterSpacing: 2.5,
+              color: COLORS.textShadow,
+            }}
+          >
+            ITINERARY
+          </span>
+        </div>
 
         {itinerary.map((day, i) => (
           <DayCard key={`${day.date}-${i}`} day={day} index={i} />
         ))}
 
-        {/* Transport reference */}
         <TransportSection legs={legs} />
-
-        {/* Accommodation suggestions */}
         <StaySection stays={stays} />
-
-        {/* Food Checklist */}
         <FoodChecklist chaoshanDays={chaoshanDays} />
 
         {/* Footer */}
         <div
           style={{
             textAlign: "center",
-            marginTop: 24,
-            padding: 16,
-            color: COLORS.textLight,
-            fontSize: 12,
-            fontFamily: sansStack,
+            marginTop: 34,
+            paddingTop: 24,
             borderTop: `1px solid ${COLORS.border}`,
           }}
         >
-          JCS 🎭 7/25 15:00 下午场 @ 香港文化中心大剧院
-          <br />
-          切换上方选项，行程自动更新 ✨
+          <p
+            style={{
+              margin: "0 0 16px",
+              fontFamily: fontStack,
+              fontStyle: "italic",
+              fontWeight: 400,
+              fontSize: 14,
+              color: "rgba(255,255,255,.26)",
+              lineHeight: 1.55,
+              letterSpacing: 0.3,
+            }}
+          >
+            "Look at all my trials and tribulations, sinking in a gentle pool of
+            wine."
+          </p>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              fontFamily: monoStack,
+              fontSize: 12,
+              color: COLORS.textMuted,
+            }}
+          >
+            <span
+              className="ms"
+              style={{ fontSize: 16, color: COLORS.accent }}
+            >
+              theater_comedy
+            </span>
+            <span>JCS · 7/25 15:00 下午场 @ 香港文化中心大剧院</span>
+          </div>
+          <div
+            style={{
+              fontSize: 12,
+              color: COLORS.textShadow,
+              marginTop: 8,
+            }}
+          >
+            切换上方选项，行程自动更新
+          </div>
         </div>
       </div>
     </div>

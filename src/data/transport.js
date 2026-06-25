@@ -4,7 +4,7 @@ export const legs = {
   // 北京 → 香港
   bj_hk_fly: {
     label: "北京 → 香港",
-    mode: "✈️ 直飞",
+    mode: "✈️ 航班直飞",
     carrier: "国泰 CX345（T3 07:25→11:00）等多班次",
     duration: "约 3h35m",
     price: "¥1155+（旺季在涨，要订趁早）",
@@ -12,7 +12,7 @@ export const legs = {
   },
   bj_hk_sleeper: {
     label: "北京 → 香港西九龙",
-    mode: "🚄 高铁动卧直达",
+    mode: "🚄 高铁动卧",
     carrier: "G897（21:01→次日 07:19）",
     duration: "约 10h20m",
     price: "动卧 ¥1280+",
@@ -40,17 +40,17 @@ export const legs = {
   // 汕头 ↔ 揭阳
   st_jy: {
     label: "汕头 → 揭阳",
-    mode: "🚗 打车 / 城际",
+    mode: "🚗 打车城际",
     carrier: "网约车 or K1 接驳大巴",
     duration: "约 40–60min",
     price: "打车 ¥120 / 大巴 ¥8",
-    note: "潮汕站为潮州/揭阳/汕头三市共用枢纽",
+    note: "",
   },
 
   // 返程
   jy_bj_fly: {
     label: "揭阳潮汕机场 → 北京",
-    mode: "✈️ 直飞",
+    mode: "✈️ 航班直飞",
     carrier: "南航 CZ8868（潮汕 20:30 → 北京大兴 23:25）",
     duration: "约 2h55m",
     price: "¥540 起（价格波动）",

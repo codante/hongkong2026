@@ -5,34 +5,39 @@ export default function Toggle({ options, value, onChange, compact }) {
     <div
       style={{
         display: "flex",
-        gap: 0,
-        borderRadius: 8,
-        overflow: "hidden",
-        border: `1.5px solid ${COLORS.border}`,
-        background: COLORS.card,
+        gap: 4,
+        padding: 4,
+        background: COLORS.cardDark,
+        border: `1px solid ${COLORS.border}`,
+        borderRadius: 11,
       }}
     >
-      {options.map((opt) => (
-        <button
-          key={String(opt.value)}
-          onClick={() => onChange(opt.value)}
-          style={{
-            padding: compact ? "6px 12px" : "8px 16px",
-            border: "none",
-            background: value === opt.value ? COLORS.accent : "transparent",
-            color: value === opt.value ? "#fff" : COLORS.text,
-            fontFamily: sansStack,
-            fontSize: compact ? 13 : 14,
-            fontWeight: value === opt.value ? 600 : 400,
-            cursor: "pointer",
-            transition: "all 0.2s",
-            flex: 1,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {opt.label}
-        </button>
-      ))}
+      {options.map((opt) => {
+        const active = value === opt.value;
+        return (
+          <button
+            key={String(opt.value)}
+            onClick={() => onChange(opt.value)}
+            style={{
+              flex: 1,
+              padding: compact ? "8px 2px" : "8px 10px",
+              border: "none",
+              borderRadius: 8,
+              cursor: "pointer",
+              fontFamily: sansStack,
+              fontSize: compact ? 11 : 13,
+              letterSpacing: compact ? -0.3 : 0,
+              fontWeight: active ? 700 : 500,
+              background: active ? COLORS.accent : "transparent",
+              color: active ? COLORS.bg : COLORS.textMuted,
+              transition: "all .18s",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {opt.label}
+          </button>
+        );
+      })}
     </div>
   );
 }
