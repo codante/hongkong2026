@@ -26,7 +26,7 @@ export const stayInfo = {
     area: "深圳北站旁",
     reason: "西九龙高铁直达深圳北(~23min)，次日同站发车去汕头——纯换乘睡一晚",
     options: [
-      { name: "深圳北站连锁酒店", price: "¥200–350/晚", note: "汉庭/全季等，步行到站、赶早车方便；深圳只是换乘点，别期待美食" },
+      { name: "待定（你调研中）", price: "—", note: "深圳北站旁，纯换乘睡一晚，回头发我补上" },
     ],
   },
   st: {
@@ -34,24 +34,7 @@ export const stayInfo = {
     area: "小公园老城",
     reason: "觅食核心区，骑楼风情，扫街方便",
     options: [
-      {
-        name: "宿町酒店",
-        price: "¥350–550/晚",
-        note: "推窗即见小公园骑楼",
-        url: "https://hotels.ctrip.com/hotels/125330822.html",
-      },
-      {
-        name: "山禾里·宋代美学庭院",
-        price: "¥560–800/晚",
-        note: "汉服体验 + 中式下午茶",
-        url: "https://hotels.ctrip.com/hotels/124112605.html",
-      },
-      {
-        name: "里巷居酒店(小公园店)",
-        price: "¥300–600/晚",
-        note: "老城核心，性价比高",
-        url: "https://hotels.ctrip.com/hotels/125207143.html",
-      },
+      { name: "待定（你调研中）", price: "—", note: "你有更平价的选择，回头发我补上" },
     ],
   },
   jy: {
