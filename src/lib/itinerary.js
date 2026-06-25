@@ -19,7 +19,7 @@ export function buildItinerary({
   const arrivalDesc =
     outbound === "fly"
       ? "✈️ 国泰 CX345 北京T3 07:25 → 香港 11:00（~3.5h）"
-      : "🚄 G897 动卧 前晚 21:01 北京发 → 今早 07:19 到西九龙";
+      : "🚄 G897 动卧 前晚 21:01 北京发 → 07:19 到西九龙（¥1280 起）";
   const arrivalTime = outbound === "fly" ? "07:25 起飞" : "07:19 到港";
 
   if (hkDays === 2) {

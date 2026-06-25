@@ -14,7 +14,7 @@ export default function App() {
   const [hkDays, setHkDays] = useState(1);
   const [hkAccom, setHkAccom] = useState("hk");
   const [hkToSt, setHkToSt] = useState("direct");
-  const [outbound, setOutbound] = useState("fly"); // fly / sleeper
+  const [outbound, setOutbound] = useState("sleeper"); // fly / sleeper（去程已敲定高铁动卧）
   const [visitJy, setVisitJy] = useState(true);
 
   const chaoshanDays = totalDays - hkDays;
