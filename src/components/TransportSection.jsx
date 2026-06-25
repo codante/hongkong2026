@@ -1,4 +1,5 @@
 import { COLORS, fontStack, sansStack } from "../theme.js";
+import Annotatable from "./Annotatable.jsx";
 
 export default function TransportSection({ legs }) {
   if (!legs || legs.length === 0) return null;
@@ -39,86 +40,88 @@ export default function TransportSection({ legs }) {
           <div
             key={leg.key}
             style={{
-              display: "flex",
-              gap: 12,
               padding: "10px 0",
               borderBottom:
                 i < legs.length - 1 ? `1px solid ${COLORS.border}66` : "none",
             }}
           >
-            <div
-              style={{
-                fontSize: 12,
-                fontWeight: 700,
-                color: "#fff",
-                background: COLORS.accent,
-                borderRadius: 6,
-                padding: "2px 8px",
-                height: "fit-content",
-                whiteSpace: "nowrap",
-                fontFamily: sansStack,
-              }}
-            >
-              {leg.mode}
-            </div>
-            <div style={{ flex: 1 }}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "baseline",
-                  gap: 8,
-                  flexWrap: "wrap",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: 14,
-                    fontWeight: 600,
-                    color: COLORS.text,
-                    fontFamily: sansStack,
-                  }}
-                >
-                  {leg.label}
-                </span>
-                <span
-                  style={{
-                    fontSize: 13,
-                    fontWeight: 600,
-                    color: COLORS.accentDark,
-                    fontFamily: sansStack,
-                  }}
-                >
-                  {leg.price}
-                </span>
-              </div>
-              <div
-                style={{
-                  fontSize: 12,
-                  color: COLORS.textLight,
-                  fontFamily: sansStack,
-                  marginTop: 2,
-                }}
-              >
-                {leg.carrier} · {leg.duration}
-              </div>
-              {leg.note && (
+            <Annotatable annoKey={`交通·${leg.key}`} label={`交通 · ${leg.label}`}>
+              <div style={{ display: "flex", gap: 12 }}>
                 <div
                   style={{
                     fontSize: 12,
-                    color: COLORS.text,
-                    fontFamily: sansStack,
-                    marginTop: 4,
-                    lineHeight: 1.5,
-                    background: COLORS.goldLight,
+                    fontWeight: 700,
+                    color: "#fff",
+                    background: COLORS.accent,
                     borderRadius: 6,
-                    padding: "4px 8px",
+                    padding: "2px 8px",
+                    height: "fit-content",
+                    whiteSpace: "nowrap",
+                    fontFamily: sansStack,
                   }}
                 >
-                  {leg.note}
+                  {leg.mode}
                 </div>
-              )}
-            </div>
+                <div style={{ flex: 1 }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "baseline",
+                      gap: 8,
+                      flexWrap: "wrap",
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontSize: 14,
+                        fontWeight: 600,
+                        color: COLORS.text,
+                        fontFamily: sansStack,
+                      }}
+                    >
+                      {leg.label}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: 13,
+                        fontWeight: 600,
+                        color: COLORS.accentDark,
+                        fontFamily: sansStack,
+                      }}
+                    >
+                      {leg.price}
+                    </span>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 12,
+                      color: COLORS.textLight,
+                      fontFamily: sansStack,
+                      marginTop: 2,
+                    }}
+                  >
+                    {leg.carrier} · {leg.duration}
+                  </div>
+                  {leg.note && (
+                    <div
+                      style={{
+                        fontSize: 12,
+                        color: COLORS.text,
+                        fontFamily: sansStack,
+                        marginTop: 4,
+                        lineHeight: 1.5,
+                        background: COLORS.goldLight,
+                        borderRadius: 6,
+                        padding: "4px 8px",
+                      }}
+                    >
+                      {leg.note}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </Annotatable>
           </div>
         ))}
       </div>
