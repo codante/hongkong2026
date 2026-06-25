@@ -10,13 +10,13 @@ export const stayInfo = {
       {
         name: "港青酒店 YMCA",
         price: "¥700+/晚",
-        note: "尖沙咀站 3min，泳池 + 部分海景",
+        note: "🎭 文化中心隔壁步行 2min！泳池 + 部分海景",
         url: "https://hotels.ctrip.com/hotels/458487.html",
       },
       {
         name: "宝御酒店 Hotel Pravo",
         price: "¥700+/晚",
-        note: "海港城旁，房间大",
+        note: "近海港城、房间大；离文化中心步行约 10min",
         url: "https://hotels.ctrip.com/hotels/2213797.html",
       },
     ],
