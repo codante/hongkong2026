@@ -15,7 +15,6 @@ export default function App() {
   const [hkAccom, setHkAccom] = useState("hk");
   const [hkToSt, setHkToSt] = useState("direct");
   const [outbound, setOutbound] = useState("fly"); // fly / sleeper
-  const [returnMode, setReturnMode] = useState("jy_fly"); // jy_fly / sz
   const [visitJy, setVisitJy] = useState(true);
 
   const chaoshanDays = totalDays - hkDays;
@@ -28,10 +27,9 @@ export default function App() {
         hkAccom,
         hkToSt,
         outbound,
-        returnMode,
         visitJy,
       }),
-    [totalDays, hkDays, hkAccom, hkToSt, outbound, returnMode, visitJy]
+    [totalDays, hkDays, hkAccom, hkToSt, outbound, visitJy]
   );
 
   const warnings = buildWarnings({ totalDays, hkDays, hkAccom });
@@ -40,7 +38,6 @@ export default function App() {
     outbound,
     hkAccom,
     hkToSt,
-    returnMode,
     visitJy,
     totalDays,
     hkDays,
@@ -178,47 +175,16 @@ export default function App() {
             )}
           </OptionCard>
 
-          <OptionCard label="回北京" icon="🏠">
+          <OptionCard label="揭阳" icon="🍜">
             <Toggle
               options={[
-                { value: "jy_fly", label: "揭阳直飞" },
-                { value: "sz", label: "回深圳走" },
+                { value: false, label: "纯路过机场" },
+                { value: true, label: "顺路吃一轮" },
               ]}
-              value={returnMode}
-              onChange={(v) => {
-                setReturnMode(v);
-                if (v === "sz") setVisitJy(false);
-              }}
+              value={visitJy}
+              onChange={setVisitJy}
             />
-            {returnMode === "sz" && (
-              <div
-                style={{
-                  marginTop: 6,
-                  padding: "6px 10px",
-                  background: COLORS.tagBg,
-                  borderRadius: 6,
-                  fontSize: 12,
-                  color: COLORS.textLight,
-                  fontFamily: sansStack,
-                }}
-              >
-                汕头→深圳 ~2.5h，然后飞/高铁卧铺回京
-              </div>
-            )}
           </OptionCard>
-
-          {returnMode === "jy_fly" && (
-            <OptionCard label="揭阳" icon="🍜">
-              <Toggle
-                options={[
-                  { value: false, label: "纯路过机场" },
-                  { value: true, label: "顺路吃一轮" },
-                ]}
-                value={visitJy}
-                onChange={setVisitJy}
-              />
-            </OptionCard>
-          )}
         </div>
 
         {/* Summary Bar */}

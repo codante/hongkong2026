@@ -7,7 +7,6 @@ export function buildItinerary({
   hkAccom,
   hkToSt,
   outbound,
-  returnMode,
   visitJy,
 }) {
   const chaoshanDays = totalDays - hkDays;
@@ -130,15 +129,7 @@ export function buildItinerary({
         activities: [],
       };
 
-      if (returnMode === "sz") {
-        day.location = "汕头 → 深圳 → 北京";
-        day.activities = [
-          { time: "早餐", desc: "🥟 肠粉 / 粿汁（最后一顿！）" },
-          { time: "上午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
-          { time: "中午", desc: "🚄 汕头 → 深圳（~2-2.5h）" },
-          { time: "傍晚", desc: "✈️ 深圳 → 北京（或高铁卧铺夕发朝至）" },
-        ];
-      } else if (visitJy && jyExpanded) {
+      if (visitJy && jyExpanded) {
         day.location = "揭阳觅食 → 飞北京";
         day.activities = [
           { time: "早餐", desc: "🍜 揭阳早餐（粿条/肠粉/粿汁）" },
@@ -203,19 +194,11 @@ export function buildItinerary({
   // Edge case: if chaoshanDays === 1, the travel day IS the last day
   if (chaoshanDays === 1) {
     const lastDay = days[days.length - 1];
-    if (returnMode === "sz") {
-      lastDay.location += " → 回深圳 → 北京";
-      lastDay.activities.push({
-        time: "深夜",
-        desc: "🚄 赶回深圳，再飞/卧铺回京（很赶！）",
-      });
-    } else {
-      lastDay.location += " → 揭阳飞北京";
-      lastDay.activities.push({
-        time: "深夜",
-        desc: "✈️ 揭阳潮汕机场红眼航班？（很赶！）",
-      });
-    }
+    lastDay.location += " → 揭阳飞北京";
+    lastDay.activities.push({
+      time: "深夜",
+      desc: "✈️ 揭阳潮汕机场红眼航班？（很赶！）",
+    });
   }
 
   return days;

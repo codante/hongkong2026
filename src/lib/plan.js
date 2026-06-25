@@ -6,7 +6,6 @@ export function buildLegs({
   outbound,
   hkAccom,
   hkToSt,
-  returnMode,
   visitJy,
   totalDays,
   hkDays,
@@ -24,12 +23,8 @@ export function buildLegs({
   }
 
   // 返程（含汕头→揭阳接驳）
-  if (returnMode === "sz") {
-    keys.push("st_sz_bj");
-  } else {
-    if (visitJy) keys.push("st_jy");
-    keys.push("jy_bj_fly");
-  }
+  if (visitJy) keys.push("st_jy");
+  keys.push("jy_bj_fly");
 
   return keys.map((k) => ({ key: k, ...legs[k] }));
 }
