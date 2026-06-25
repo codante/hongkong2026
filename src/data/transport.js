@@ -59,10 +59,10 @@ export const legs = {
   jy_bj_fly: {
     label: "揭阳潮汕机场 → 北京",
     mode: "✈️ 直飞",
-    carrier: "南航 / 国航 等",
-    duration: "约 3h20m",
-    price: "单程 ¥700–1500",
-    note: "机场三市共用：离汕头市区打车约 40min、离揭阳市区约 30min",
+    carrier: "南航 CZ8868（潮汕 20:30 → 北京大兴 23:25）",
+    duration: "约 2h55m",
+    price: "¥540 起（价格波动）",
+    note: "晚班机，返程当天白天从容；机场三市共用，离汕头市区打车约 40min、离揭阳市区约 30min",
   },
   st_sz_bj: {
     label: "汕头 → 深圳 → 北京",

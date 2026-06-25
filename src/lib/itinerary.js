@@ -145,7 +145,7 @@ export function buildItinerary({
           { time: "上午", desc: "🔥 揭阳市区继续扫街觅食" },
           { time: "午餐", desc: "🥩 揭阳乙鸽鸽 / 当地特色", highlight: true },
           { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
-          { time: "傍晚", desc: "✈️ 揭阳潮汕机场 → 北京" },
+          { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
       } else if (visitJy) {
         day.location = "汕头 → 揭阳觅食 → 飞北京";
@@ -154,14 +154,14 @@ export function buildItinerary({
           { time: "上午", desc: "🚗 前往揭阳（~40min）" },
           { time: "午餐", desc: "🍜 揭阳美食探索" },
           { time: "下午", desc: "🎁 买伴手礼（腐乳饼/老药桔）" },
-          { time: "傍晚", desc: "✈️ 揭阳潮汕机场 → 北京" },
+          { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
       } else {
         day.location = "汕头 → 揭阳机场 → 北京";
         day.activities = [
           { time: "早餐", desc: "🥟 肠粉 / 粿汁" },
           { time: "上午", desc: "🎁 老城区最后一逛 + 买伴手礼" },
-          { time: "下午", desc: "✈️ 揭阳潮汕机场 → 北京" },
+          { time: "20:30 起飞", desc: "✈️ 南航 CZ8868 揭阳潮汕 20:30 → 北京大兴 23:25（¥540 起）" },
         ];
       }
       days.push(day);
