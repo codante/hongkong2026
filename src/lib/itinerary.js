@@ -77,8 +77,8 @@ export function buildItinerary({ totalDays, hkPlan, outbound, visitJy }) {
     location: fromSz ? "深圳 → 汕头" : "香港 → 汕头",
     activities: fromSz
       ? [
-          { time: "清晨", desc: "🚄 退房赶最早班高铁，深圳北 → 汕头（约 2-2.5h，¥200）" },
-          { time: "上午", desc: "🏨 到汕头，check-in 放行李" },
+          { time: "07:54 发车", desc: "🚄 C7220 深圳北 07:54 → 汕头 10:03（¥148）" },
+          { time: "10:03 到", desc: "🏨 到汕头，check-in 放行李" },
           { time: "中午", desc: "🍜 汕头第一口：粿条 / 牛肉丸垫垫" },
           { time: "下午", desc: "❄️ 酒店空调躺平，午睡，等太阳下去" },
           { time: "傍晚", desc: "🔥 出动！老城区小公园片区" },
