@@ -8,8 +8,6 @@ import TransportSection from "./components/TransportSection.jsx";
 import StaySection from "./components/StaySection.jsx";
 import { buildItinerary, buildWarnings } from "./lib/itinerary.js";
 import { buildLegs, buildStays } from "./lib/plan.js";
-import { AnnotationProvider } from "./annotations/AnnotationContext.jsx";
-import ExportBar from "./components/ExportBar.jsx";
 
 export default function App() {
   const [totalDays, setTotalDays] = useState(4);
@@ -32,7 +30,6 @@ export default function App() {
   const stays = buildStays({ totalDays, hkPlan, visitJy });
 
   return (
-    <AnnotationProvider>
     <div
       style={{
         background: COLORS.bg,
@@ -61,7 +58,7 @@ export default function App() {
           🎭 香港 × 潮汕 行程规划器
         </h1>
         <p style={{ margin: "6px 0 0", fontSize: 13, opacity: 0.9 }}>
-          切换选项生成方案 · ✏️ 点任意项批注 · 底部一键复制发我改
+          切换选项 → 自动生成行程方案 → 截图发给朋友讨论
         </p>
       </div>
 
@@ -230,12 +227,7 @@ export default function App() {
         </h2>
 
         {itinerary.map((day, i) => (
-          <DayCard
-            key={`${day.date}-${i}`}
-            day={day}
-            index={i}
-            scope={`${hkPlan}·${totalDays}天`}
-          />
+          <DayCard key={`${day.date}-${i}`} day={day} index={i} />
         ))}
 
         {/* Transport reference */}
@@ -261,11 +253,9 @@ export default function App() {
         >
           JCS 🎭 7/25 15:00 下午场 @ 香港文化中心大剧院
           <br />
-          ✏️ 点任意项可批注，底部「复制全部批注」发我修改 ✨
+          切换上方选项，行程自动更新 ✨
         </div>
       </div>
-      <ExportBar />
     </div>
-    </AnnotationProvider>
   );
 }

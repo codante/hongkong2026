@@ -1,6 +1,5 @@
 import { COLORS, fontStack, sansStack } from "../theme.js";
 import { foods } from "../data/foods.js";
-import Annotatable from "./Annotatable.jsx";
 
 export default function FoodChecklist({ chaoshanDays }) {
   const mealSlots =
@@ -61,50 +60,47 @@ export default function FoodChecklist({ chaoshanDays }) {
             <div
               key={f.name}
               style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 10,
                 padding: "6px 0",
                 borderBottom: `1px solid ${COLORS.border}22`,
               }}
             >
-              <Annotatable annoKey={`美食·${f.name}`} label={`美食 · ${f.name}`}>
-                <div
-                  style={{ display: "flex", alignItems: "center", gap: 10 }}
-                >
-                  <span style={{ fontSize: 18, width: 28, textAlign: "center" }}>
-                    {f.emoji}
-                  </span>
-                  <span
-                    style={{
-                      fontFamily: sansStack,
-                      fontSize: 14,
-                      fontWeight: 600,
-                      color: COLORS.text,
-                      minWidth: 90,
-                    }}
-                  >
-                    {f.name}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 11,
-                      color: priorityColor,
-                      fontWeight: 600,
-                      fontFamily: sansStack,
-                      minWidth: 48,
-                    }}
-                  >
-                    {f.priority}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: COLORS.textLight,
-                      fontFamily: sansStack,
-                    }}
-                  >
-                    {f.note}
-                  </span>
-                </div>
-              </Annotatable>
+              <span style={{ fontSize: 18, width: 28, textAlign: "center" }}>
+                {f.emoji}
+              </span>
+              <span
+                style={{
+                  fontFamily: sansStack,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: COLORS.text,
+                  minWidth: 90,
+                }}
+              >
+                {f.name}
+              </span>
+              <span
+                style={{
+                  fontSize: 11,
+                  color: priorityColor,
+                  fontWeight: 600,
+                  fontFamily: sansStack,
+                  minWidth: 48,
+                }}
+              >
+                {f.priority}
+              </span>
+              <span
+                style={{
+                  fontSize: 12,
+                  color: COLORS.textLight,
+                  fontFamily: sansStack,
+                }}
+              >
+                {f.note}
+              </span>
             </div>
           );
         })}

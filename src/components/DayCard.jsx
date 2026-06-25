@@ -1,5 +1,4 @@
 import { COLORS, sansStack } from "../theme.js";
-import Annotatable from "./Annotatable.jsx";
 
 const locationColors = {
   香港: COLORS.hk,
@@ -9,7 +8,7 @@ const locationColors = {
   揭阳: COLORS.jy,
 };
 
-export default function DayCard({ day, index, scope }) {
+export default function DayCard({ day, index }) {
   const mainLocation =
     Object.keys(locationColors).find((l) => day.location.includes(l)) ||
     COLORS.accent;
@@ -98,7 +97,10 @@ export default function DayCard({ day, index, scope }) {
             <div
               key={i}
               style={{
+                display: "flex",
+                gap: 10,
                 padding: "10px 14px",
+                alignItems: "flex-start",
                 borderBottom:
                   i < day.activities.length - 1
                     ? `1px solid ${COLORS.border}`
@@ -106,38 +108,29 @@ export default function DayCard({ day, index, scope }) {
                 background: act.highlight ? COLORS.goldLight : "transparent",
               }}
             >
-              <Annotatable
-                annoKey={`行程·${scope}·${day.date}·${i}`}
-                label={`[${scope}] ${day.date}（${day.weekday}）${act.time}｜${act.desc}`}
+              <span
+                style={{
+                  fontSize: 12,
+                  color: COLORS.textLight,
+                  fontFamily: sansStack,
+                  minWidth: 56,
+                  flexShrink: 0,
+                  paddingTop: 1,
+                  fontWeight: 500,
+                }}
               >
-                <div
-                  style={{ display: "flex", gap: 10, alignItems: "flex-start" }}
-                >
-                  <span
-                    style={{
-                      fontSize: 12,
-                      color: COLORS.textLight,
-                      fontFamily: sansStack,
-                      minWidth: 56,
-                      flexShrink: 0,
-                      paddingTop: 1,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {act.time}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 14,
-                      color: COLORS.text,
-                      fontFamily: sansStack,
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    {act.highlight ? <strong>{act.desc}</strong> : act.desc}
-                  </span>
-                </div>
-              </Annotatable>
+                {act.time}
+              </span>
+              <span
+                style={{
+                  fontSize: 14,
+                  color: COLORS.text,
+                  fontFamily: sansStack,
+                  lineHeight: 1.5,
+                }}
+              >
+                {act.highlight ? <strong>{act.desc}</strong> : act.desc}
+              </span>
             </div>
           ))}
         </div>

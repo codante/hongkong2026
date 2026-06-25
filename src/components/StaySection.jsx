@@ -1,6 +1,5 @@
 import { COLORS, fontStack, sansStack } from "../theme.js";
 import { stayInfo } from "../data/accommodation.js";
-import Annotatable from "./Annotatable.jsx";
 
 export default function StaySection({ stays }) {
   if (!stays || stays.length === 0) return null;
@@ -107,20 +106,16 @@ export default function StaySection({ stays }) {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
                 {info.options.map((opt) => (
-                  <div key={opt.name}>
-                    <Annotatable
-                      annoKey={`住宿·${opt.name}`}
-                      label={`住宿（${info.city}）· ${opt.name}`}
-                    >
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "baseline",
-                          gap: 8,
-                          flexWrap: "wrap",
-                        }}
-                      >
+                  <div
+                    key={opt.name}
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "baseline",
+                      gap: 8,
+                      flexWrap: "wrap",
+                    }}
+                  >
                     {opt.url ? (
                       <a
                         href={opt.url}
@@ -169,8 +164,6 @@ export default function StaySection({ stays }) {
                     >
                       {opt.note}
                     </span>
-                      </div>
-                    </Annotatable>
                   </div>
                 ))}
               </div>
