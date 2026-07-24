@@ -6,13 +6,14 @@ import DayCard from "./components/DayCard.jsx";
 import FoodChecklist from "./components/FoodChecklist.jsx";
 import TransportSection from "./components/TransportSection.jsx";
 import StaySection from "./components/StaySection.jsx";
-import { buildItinerary, buildWarnings } from "./lib/itinerary.js";
+import { buildItinerary } from "./lib/itinerary.js";
 import { buildLegs, buildStays } from "./lib/plan.js";
 
 export default function App() {
-  const [totalDays, setTotalDays] = useState(4);
-  const [hkPlan, setHkPlan] = useState("hk1");
-  const [outbound, setOutbound] = useState("sleeper");
+  // 已敲定：5天 · 高铁动卧去程 · 香港2天转深圳（hk2sz），只剩揭阳吃不吃还可切
+  const totalDays = 5;
+  const hkPlan = "hk2sz";
+  const outbound = "sleeper";
   const [visitJy, setVisitJy] = useState(true);
 
   const hkDays = hkPlan === "hk2sz" ? 2 : 1;
@@ -23,16 +24,11 @@ export default function App() {
     [totalDays, hkPlan, outbound, visitJy]
   );
 
-  const warnings = buildWarnings({ totalDays, hkPlan });
   const legs = buildLegs({ outbound, hkPlan, visitJy });
   const stays = buildStays({ totalDays, hkPlan, visitJy });
 
   const hkNote =
-    hkPlan === "hk1"
-      ? "7/25 看戏住香港 → 7/26 中午 G6392 直达汕头（最省心，香港房 ~¥700）"
-      : hkPlan === "sz1"
-      ? "7/25 看完戏当晚回深圳住（省钱）→ 7/26 早上深圳去汕头"
-      : "7/25 看戏住香港 → 7/26 玩一天、晚上去深圳住（省房钱）→ 7/27 去汕头";
+    "7/25 看戏住香港 → 7/26 玩一天、晚上去深圳住 → 7/27 去汕头";
 
   return (
     <div
@@ -106,7 +102,7 @@ export default function App() {
               letterSpacing: 0.3,
             }}
           >
-            切换选项 &nbsp;→&nbsp; 自动生成行程方案
+            行程已定 &nbsp;·&nbsp; 7/24 晚出发 &nbsp;·&nbsp; 7/29 返京
           </p>
         </div>
       </div>
@@ -127,31 +123,32 @@ export default function App() {
             marginBottom: 22,
           }}
         >
-          <OptionCard label="总天数" icon="date_range">
-            <Toggle
-              options={[
-                { value: 4, label: "4天" },
-                { value: 5, label: "5天" },
-              ]}
-              value={totalDays}
-              onChange={setTotalDays}
-            />
-          </OptionCard>
-
-          <OptionCard label="香港方案" icon="location_city">
-            <Toggle
-              compact
-              options={[
-                { value: "hk1", label: "1天·住香港" },
-                { value: "sz1", label: "1天·回深圳" },
-                { value: "hk2sz", label: "2天·港转深" },
-              ]}
-              value={hkPlan}
-              onChange={setHkPlan}
-            />
+          <OptionCard label="行程 · 已定" icon="event_available">
             <div
               style={{
-                marginTop: 10,
+                fontSize: 14,
+                fontWeight: 700,
+                color: COLORS.text,
+                lineHeight: 1.6,
+              }}
+            >
+              5天 · 7/24（五）晚出发
+            </div>
+            <div
+              style={{
+                marginTop: 4,
+                fontSize: 12,
+                color: COLORS.textMuted,
+                lineHeight: 1.55,
+              }}
+            >
+              香港 2天 → 深圳 1晚 → 汕头，7/29 飞回北京
+            </div>
+          </OptionCard>
+
+          <OptionCard label="香港段 · 已定" icon="location_city">
+            <div
+              style={{
                 display: "flex",
                 gap: 7,
                 padding: "9px 11px",
@@ -182,48 +179,27 @@ export default function App() {
             </div>
           </OptionCard>
 
-          <OptionCard label="北京 → 香港" icon="flight">
-            <Toggle
-              options={[
-                { value: "fly", label: "白天航班" },
-                { value: "sleeper", label: "高铁卧铺" },
-              ]}
-              value={outbound}
-              onChange={setOutbound}
-            />
-            {outbound === "sleeper" && (
-              <div
-                style={{
-                  marginTop: 10,
-                  display: "flex",
-                  gap: 7,
-                  padding: "9px 11px",
-                  background: "rgba(87,201,154,.07)",
-                  borderRadius: 9,
-                }}
-              >
-                <span
-                  className="ms"
-                  style={{
-                    fontSize: 15,
-                    color: COLORS.accent,
-                    flexShrink: 0,
-                    paddingTop: 1,
-                  }}
-                >
-                  train
-                </span>
-                <span
-                  style={{
-                    fontSize: 12,
-                    color: COLORS.textMid,
-                    lineHeight: 1.55,
-                  }}
-                >
-                  前一晚北京出发，早上到港/深（价格≈机票）
-                </span>
-              </div>
-            )}
+          <OptionCard label="去程 · 已定" icon="train">
+            <div
+              style={{
+                fontSize: 14,
+                fontWeight: 700,
+                color: COLORS.text,
+                lineHeight: 1.6,
+              }}
+            >
+              🚄 G897 高铁动卧
+            </div>
+            <div
+              style={{
+                marginTop: 4,
+                fontSize: 12,
+                color: COLORS.textMuted,
+                lineHeight: 1.55,
+              }}
+            >
+              7/24 晚 21:01 北京发车 → 7/25 早 07:19 到西九龙
+            </div>
           </OptionCard>
 
           <OptionCard label="揭阳" icon="ramen_dining">
@@ -287,59 +263,6 @@ export default function App() {
             </span>
           ))}
         </div>
-
-        {/* Warnings */}
-        {warnings.length > 0 && (
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 8,
-              marginBottom: 6,
-            }}
-          >
-            {warnings.map((w, i) => {
-              const isWarn = w.startsWith("⚠️");
-              const barColor = isWarn ? COLORS.warn : COLORS.gold;
-              const text = w.replace(/^(?:💡|⚠️)\s*/, "");
-              return (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    gap: 10,
-                    alignItems: "flex-start",
-                    padding: "11px 14px",
-                    background: isWarn ? COLORS.warnBg : COLORS.infoBg,
-                    borderLeft: `3px solid ${barColor}`,
-                    borderRadius: "0 9px 9px 0",
-                  }}
-                >
-                  <span
-                    className="ms"
-                    style={{
-                      fontSize: 17,
-                      color: barColor,
-                      flexShrink: 0,
-                      paddingTop: 1,
-                    }}
-                  >
-                    {isWarn ? "warning" : "tips_and_updates"}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 13,
-                      color: "#D9DEE5",
-                      lineHeight: 1.55,
-                    }}
-                  >
-                    {text}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        )}
 
         {/* Itinerary Section Header */}
         <div
@@ -443,7 +366,7 @@ export default function App() {
               marginTop: 8,
             }}
           >
-            切换上方选项，行程自动更新
+            行程已定 · 一路顺风 🎒
           </div>
         </div>
       </div>
