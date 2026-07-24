@@ -32,6 +32,9 @@
 
 ## 架构约定（重要）
 
+### 给 AI 窗口看行程
+页面是 JS 渲染的 SPA，WebFetch 抓不到内容。**纯文本版**：https://codante.github.io/hongkong2026/plan.md —— 由 `scripts/generate-plan.mjs` 在 `npm run build` 时从 src/ 数据自动生成（输出到 `public/plan.md`），永远与页面同步，改数据后无需手动更新。
+
 ### 文件地图
 - 🎨 **样式层（可改视觉）**：`theme.js`（色板+字体，全局入口）、`components/*.jsx`、`App.jsx`、`main.jsx`
 - 📝 **文案层（Coda 自己改）**：`data/content.js` — 所有行程文字集中于此，按场景命名分块，**不含逻辑**
