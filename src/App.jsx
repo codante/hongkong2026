@@ -6,6 +6,7 @@ import DayCard from "./components/DayCard.jsx";
 import FoodChecklist from "./components/FoodChecklist.jsx";
 import TransportSection from "./components/TransportSection.jsx";
 import StaySection from "./components/StaySection.jsx";
+import TyphoonBanner from "./components/TyphoonBanner.jsx";
 import { buildItinerary } from "./lib/itinerary.js";
 import { buildLegs, buildStays } from "./lib/plan.js";
 
@@ -114,6 +115,8 @@ export default function App() {
           padding: "26px 28px 60px",
         }}
       >
+        <TyphoonBanner />
+
         {/* Option Cards */}
         <div
           style={{
